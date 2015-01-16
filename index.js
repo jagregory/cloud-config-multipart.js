@@ -4,7 +4,8 @@
 require('es6-shim')
 
 var fs = require('fs'),
-  mimeMultipartStream = require('mime-multipart-stream')
+  mimeMultipartStream = require('./mime-multipart-stream'),
+  path = require('path')
 
 function readFirstLineOfFile(filename) {
   return new Promise(function(resolve, reject) {
@@ -23,14 +24,14 @@ function readFirstLineOfFile(filename) {
   })
 }
 
-var defaultType = 'text/plain; charset=UTF-8'
+var defaultType = 'text/plain; charset="UTF-8"'
 var mimeTypeMappings = {
-  '#!': 'text/x-shellscript',
-  '#cloud-boothook': 'text/cloud-boothook',
-  '#cloud-config': 'text/cloud-config',
-  '#include': 'text/x-include-url',
-  '#part-handler': 'text/part-handler',
-  '#upstart-job': 'text/upstart-job',
+  '#!': 'text/x-shellscript; charset="UTF-8"',
+  '#cloud-boothook': 'text/cloud-boothook; charset="UTF-8"',
+  '#cloud-config': 'text/cloud-config; charset="UTF-8"',
+  '#include': 'text/x-include-url; charset="UTF-8"',
+  '#part-handler': 'text/part-handler; charset="UTF-8"',
+  '#upstart-job': 'text/upstart-job; charset="UTF-8"',
 }
 
 function getTypeFromPreamble(preamble) {
@@ -59,7 +60,8 @@ module.exports = function(files, opts) {
         .then(function(type) {
           stream.add({
             type: type,
-            body: fs.createReadStream(file)
+            body: fs.createReadStream(file),
+            disposition: 'attachment; filename="' + path.basename(file) + '"'
           })
           return true
         })

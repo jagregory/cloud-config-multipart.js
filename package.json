@@ -1,13 +1,15 @@
 {
   "name": "cloud-config-multipart",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "James Gregory <james@jagregory.com>",
   "bin": {
     "cloud-config-multipart": "./bin/cloud-config-multipart"
   },
   "dependencies": {
     "es6-shim": "^0.22.2",
-    "mime-multipart-stream": "^0.2.0"
+    "mime-headers": "0.0.1",
+    "mime-part-stream": "^0.4.0",
+    "sandwich-stream": "0.0.4"
   },
   "description": "Javascript multipart file concatenator for cloud-config user data",
   "homepage": "https://github.com/jagregory/cloud-config-multipart.js",
