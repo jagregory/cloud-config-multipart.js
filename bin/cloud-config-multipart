@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+var multipart = require('../index')
+
+multipart(process.argv.slice(2))
+  .then(function(stream) {
+    stream.on('data', function(d) {
+      console.log(d.toString())
+    })
+  })
+  .catch(function(err) {
+    console.error(err)
+    process.exit(1)
+  })
+
+// parser = OptionParser()
+    
+//     parser.add_option("-o", "--output", dest="output",
+//         help="write output to FILE [default %default]", metavar="FILE", 
+//         default="-")
+//     parser.add_option("-z", "--gzip", dest="compress", action="store_true",
+//         help="compress output", default=False)
+//     parser.add_option("-d", "--default", dest="deftype",
+//         help="default mime type [default %default]", default="text/plain")
+//     parser.add_option("--delim", dest="delim",
+//         help="delimiter [default %default]", default=":")
+//     parser.add_option("-b", "--base64", dest="base64", action="store_true",
+//         help="encode content base64", default=False)
+
+//     (options, args) = parser.parse_args()
+
+//     if (len(args)) < 1:
+//         parser.error("Must give file list see '--help'")
